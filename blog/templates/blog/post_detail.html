@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>{{post.title}}</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text mb-3">
+                    {{post.content}}
+                </p>
+                <p class="card-text mb-2">{{post.author.username}}</p>
+                <p class="card-text mb-2">{{post.published_at|date:"d M Y H:i"}}</p>
+                <hr>
+                <h2>Yorumlar</h2>
+                <ul>
+                    {%for comment in comments%}
+                    <li><strong>{{comment.author}}</strong>: {{comment.text}}</li>
+                    {%empty%}
+                    <li>Henüz Yorum Yok</li>
+                    {%endfor%}
+                </ul>
+                {%if user.is_authenticated%}
+                <h5>Yorum Ekle</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Ekle</button>
+                </form>
+                {%else%}
+                <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ornekmodal">Yorum Ekle</a>
+                {%endif%}
+            </div>
+            <div class="card-footer text-center">
+                <a href="{%url 'post_list'%}" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

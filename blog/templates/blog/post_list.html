@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% block title %}Blog Yazıları{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.text|truncatewords:20 }}</p>
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary">Devamını Oku</a>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ post.created_date|date:"d M Y" }}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Henüz yazı yok.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

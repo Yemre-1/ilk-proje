@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="card w-50">
+    <div class="card-header">
+   <h3>Yeni Blog Oluştur</h3>
+    </div>
+    <div class="card-body">
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    <div class="mb-5">
+    <label for="title" class="form-label me-5">Başlık</label>
+    {{form.title}}
+    </div>
+    <div class="mb-3">
+    <label for="content" class="form-label">Blog İçeriği</label>
+    {{form.content}}
+    </div>
+    <button type="submit">Kaydet</button>
+</form>
+</div>
+</div>
+
+{%endblock%}
